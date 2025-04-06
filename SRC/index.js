@@ -87,9 +87,8 @@ const express = require('express');
 const serverConfig = require('./config/serverConfig')
 const connectDB = require("./config/dbConfig");
 const userRoutes = require('./routes/userRoutes');
-const cartRouter = require('./routes/cartRoutes');
-const productRouter = require('./routes/productRouters');
-const orderRouter = require('./routes/orderRouters');
+// const authRouter = require('./routes/authRoutes');
+const User = require('./scema/userSchema');
 const app = express();
 app.use(express.json());//deserialization  //no need to import body parse because this is by default given by express 
 app.use(express.text());
@@ -97,11 +96,27 @@ app.use(express.urlencoded({ extended: true }))
 
 //routing middleware 
 // if your req start with /users then handle by useRouters
-app.use('/users',userRoutes)//connect router to server 
-app.use('/cart',cartRouter)
-app.use('/product',productRouter)
-app.use('/order',orderRouter)
+app.use('/users', userRoutes)//connect router to server 
+
+// app.use('/auth',authRouter)
+
+
 app.listen(serverConfig.PORT, async () => {
     await connectDB()
     console.log('now after adding environment variable port is access by ', serverConfig.PORT);
+
+    // const newUser = await User.create({
+    //     firstName: "Pratik",
+    //     lastName: "Sahu",
+    //     email:'prashant@Sahu2.com',
+    //     password:'000002',
+    //     mobileNumber: "0000000002",
+    // })
+    // console.log("new user", newUser);
 })
+
+
+
+
+// localhost:5000/users/   ->Post
+// localhost:5000/auth  ->Get

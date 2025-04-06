@@ -1,25 +1,26 @@
 const mongoose = require('mongoose')
+// const bcrypt=require('bcrypt')
 
 const userSchema = new mongoose.Schema({
-    first_Name: {
+    firstName: {
         type: String,//data type of element
         required: [true, "First Name is Required"], // true denote compulsory and index 1 denote erroe message thown when this field is Empty
-        minlength: [5, "First name must be 5 character"],
+        minlength: [2, "First name must be 5 character"],
         //to know more about validation search in google
         lowercase: true,
         trim: true,
         maxlength: [20, "given input must in less than 20"]
     },
-    last_Name: {
+    lastName: {
         type: String,//data type of element
         required: [true, "last Name is Required"], // true denote compulsory and index 1 denote erroe message thown when this field is Empty
-        minlength: [5, "last name must be 5 character"],
+        minlength: [2, "last name must be 5 character"],
         //to know more about validation search in google
         lowercase: true,
         trim: true,
         maxlength: [20, "given input must in less than 20"]
     },
-    mobile_Number: {
+    mobileNumber: {
         type: String,
         minlength: [10, "number mush be in 10 digit"],
         maxlength: [10, "number mush be in 10 digit"],
@@ -44,6 +45,17 @@ const userSchema = new mongoose.Schema({
     timestamps:true,
 })
 
+
+// userSchema.pre('save',async function (){
+//     console.log("executing pre save hook");
+//     console.log(this)
+//     const hashedPassword = await bcrypt.hash(this.password,10);
+//     this.password=hashedPassword;
+//     console.log(this);
+// })
+
 const User = mongoose.model("User",userSchema) //collection
+
+// const User = new usow;
 
 module.exports = User;
