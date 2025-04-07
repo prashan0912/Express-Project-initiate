@@ -87,18 +87,31 @@ const express = require('express');
 const serverConfig = require('./config/serverConfig')
 const connectDB = require("./config/dbConfig");
 const userRoutes = require('./routes/userRoutes');
-// const authRouter = require('./routes/authRoutes');
+const authRouter = require('./routes/authRoutes');
 const User = require('./scema/userSchema');
+const cookieParser = require('cookie-parser');
+const { isLongedIn } = require('./validation/authvalidator');
 const app = express();
 app.use(express.json());//deserialization  //no need to import body parse because this is by default given by express 
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())//for parsing the cookies
 
 //routing middleware 
 // if your req start with /users then handle by useRouters
 app.use('/users', userRoutes)//connect router to server 
 
-// app.use('/auth',authRouter)
+app.use('/auth', authRouter)
+
+
+app.get('/ping', isLongedIn, (req, res) => {
+    // controller
+    // console.log(req.body)
+    console.log(req.cookies)//for checking the cookies
+    return res.json({
+        message: "pong",
+    })
+})
 
 
 app.listen(serverConfig.PORT, async () => {

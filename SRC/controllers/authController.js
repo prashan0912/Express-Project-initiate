@@ -1,18 +1,21 @@
 
-const loginUser = require('../services/authService')
+const { loginUser } = require('../services/authService')
 async function login(req, res) {
-    // console.log(req.body)
 
     try {
         const loginPayload = req.body;
-        // console.log(req.body)
         const response = await loginUser(loginPayload);
-        // console.log(req.body)
+
+        res.cookie("authToken", response, {
+            httpOnly: true,
+            secure: false,
+            maxAge: 1000 * 60 * 60 * 24 * 7// 7 day
+        });
 
         return res.status(200).json({
             success: true,
             message: 'logged in success',
-            date: { response },
+            date: {},
             error: {}
         })
 

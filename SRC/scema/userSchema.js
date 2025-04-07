@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-// const bcrypt=require('bcrypt')
+const bcrypt=require('bcrypt')
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -46,16 +46,15 @@ const userSchema = new mongoose.Schema({
 })
 
 
-// userSchema.pre('save',async function (){
-//     console.log("executing pre save hook");
-//     console.log(this)
-//     const hashedPassword = await bcrypt.hash(this.password,10);
-//     this.password=hashedPassword;
-//     console.log(this);
-// })
+userSchema.pre('save',async function (){
+    console.log("executing pre save hook");
+    console.log(this)
+    const hashedPassword = await bcrypt.hash(this.password,10);
+    this.password=hashedPassword;
+    console.log(this);
+})
 
 const User = mongoose.model("User",userSchema) //collection
 
-// const User = new usow;
 
 module.exports = User;

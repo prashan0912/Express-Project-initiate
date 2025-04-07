@@ -1,6 +1,8 @@
 
 
-function fun() {
-    console.log("Hello World");
+function getMobileDetails(obj) {
+    console.log("Mobile Details:", obj)
 }
-console.log(fun())
+
+
+module.exports = { getMobileDetails }

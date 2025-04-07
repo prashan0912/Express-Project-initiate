@@ -12,7 +12,6 @@ async function findUser(parameters) {
 
 async function createUser(userDetails) {
     try {
-        console.log("hitting repository layer", userDetails);
         const response = await User.create(userDetails);
         return response;
     } catch (error) {

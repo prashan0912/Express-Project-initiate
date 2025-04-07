@@ -1,7 +1,7 @@
 const { findUser, createUser } = require("../repositories/userRepository");
 
 async function registerUser(userDetails) {
-    console.log('hitting service layer', userDetails)
+    // console.log('hitting service layer', userDetails)
     const user = await findUser({
         email: userDetails.email,
         mobileNumber: userDetails.mobileNumber
